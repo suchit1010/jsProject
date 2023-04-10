@@ -1,0 +1,2 @@
+# jsProject
+vanilaJS project 
