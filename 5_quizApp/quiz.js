@@ -1,13 +1,15 @@
 
 // Get the question element from the HTML document
 const question = document.getElementById("question");
-
 // Get an array of choice elements from the HTML document
 const choices = Array.from(document.getElementsByClassName("choice-text"));
+//Get question counter 
+const questionCounterText = document.getElementById('questioncount');
+const scoreText = document.getElementById('score');
 
 // Declare variables for the current question, answer acceptance, score, question counter, and available questions
 let currentQuestion = {};
-let acceptingAnswers = false;
+let acceptingAnswers = false
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
@@ -50,7 +52,7 @@ let questions = [
 
 // Constants
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
+const MAX_QUESTIONS = 5;
 
 // Function to start the game
 startGame = () => {
@@ -77,6 +79,8 @@ getNewQuestion = () => {
 
   // Increment the question counter
   questionCounter++;
+   // Count question using ES6 template literals
+   questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`;
 
   // Select a random question from availableQuestions
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
@@ -116,6 +120,10 @@ choices.forEach((choice) => {
     const classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
     
     selectedChoice.parentElement.classList.add(classToApply);
+
+    if (classToApply === 'correct'){
+      incrementscore(CORRECT_BONUS);
+    }
     
 
     setTimeout( () => {
@@ -127,5 +135,9 @@ choices.forEach((choice) => {
   });
 });
 
+incrementscore = num =>{
+  score += num;
+  scoreText.innerText = score;
+};
 // Start the game
 startGame();

@@ -21,7 +21,7 @@
 }
 
 .choice-text {
-    padding: 1.5rem;
+    padding: 2rem;
     width: 100%;
 }
 
@@ -31,4 +31,20 @@
 
 .incorrect{
     background-color: rgb(244, 31, 31);
+}
+
+/* hud */
+#hud{
+    display: flex;
+    justify-content: space-between;
+}
+
+.hud-prefix{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+
+}
+.hud-main-text{
+    text-align: center;
 }
