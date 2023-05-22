@@ -47,6 +47,14 @@ let questions = [
     choice3: "Subhash Chandra Bose",
     choice4: "Sardar Vallabhbhai Patel",
     answer: 1,
+  },
+  {
+    question: "Who is known as the father of India?",
+    choice1: "Mahatma Gandhi",
+    choice2: "Jawaharlal Nehru",
+    choice3: "Subhash Chandra Bose",
+    choice4: "Sardar Vallabhbhai Patel",
+    answer: 1,
   }
 ];
 
@@ -73,6 +81,8 @@ startGame = () => {
 getNewQuestion = () => {
   // Check if there are no more available questions or the maximum number of questions have been reached
   if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+    //store the score in local storage to save it
+    localStorage.setItem("mostRecentScore",score);
     // Go to the end page
     return window.location.assign("score.html");
   }
@@ -139,5 +149,6 @@ incrementscore = num =>{
   score += num;
   scoreText.innerText = score;
 };
+
 // Start the game
 startGame();
