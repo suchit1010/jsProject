@@ -6,6 +6,9 @@ const choices = Array.from(document.getElementsByClassName("choice-text"));
 //Get question counter 
 const questionCounterText = document.getElementById('questioncount');
 const scoreText = document.getElementById('score');
+const loader = document.getElementById("loader");
+const game = document.getElementById("game");
+
 
 // Declare variables for the current question, answer acceptance, score, question counter, and available questions
 let currentQuestion = {};
@@ -15,48 +18,39 @@ let questionCounter = 0;
 let availableQuestions = [];
 
 // Define an array of question objects
-let questions = [
-  {
-    question: "Inside which HTML element do we put the JavaScript?",
-    choice1: "script",
-    choice2: "head",
-    choice3: "body",
-    choice4: "div",
-    answer: 1,
-  },
-  {
-    question: "Who is the Prime Minister of India?",
-    choice1: "Rahul Gandhi",
-    choice2: "Narendra Modi",
-    choice3: "Amit Shah",
-    choice4: "Manmohan Singh",
-    answer: 2,
-  },
-  {
-    question: "What is the capital of India?",
-    choice1: "Mumbai",
-    choice2: "Kolkata",
-    choice3: "Chennai",
-    choice4: "Delhi",
-    answer: 4,
-  },
-  {
-    question: "Who is known as the father of India?",
-    choice1: "Mahatma Gandhi",
-    choice2: "Jawaharlal Nehru",
-    choice3: "Subhash Chandra Bose",
-    choice4: "Sardar Vallabhbhai Patel",
-    answer: 1,
-  },
-  {
-    question: "Who is known as the father of India?",
-    choice1: "Mahatma Gandhi",
-    choice2: "Jawaharlal Nehru",
-    choice3: "Subhash Chandra Bose",
-    choice4: "Sardar Vallabhbhai Patel",
-    answer: 1,
-  }
-];
+let questions = [];
+
+fetch("https://opentdb.com/api.php?amount=10&category=23")
+.then(res => {
+  return res.json();
+})
+
+.then((loadedQuestions) => {
+  questions = loadedQuestions.results.map((loadedQuestion) => {
+      const formattedQuestion = {
+          question: loadedQuestion.question
+      };
+
+      const answerChoice = [... loadedQuestion.incorrect_answers];
+      formattedQuestion.answer = Math.floor(Math.random()*3) + 1;
+      answerChoice.splice(formattedQuestion.answer -1, 0,
+        loadedQuestion.incorrect_answer);
+
+        answerChoice.forEach((choice,index) =>{
+          formattedQuestion["choice" + (index+1)] = choice;
+        });
+        return formattedQuestion;
+    
+
+  })
+
+  // Start the games
+ startGame();
+})
+.catch(err => {
+  console.error(err);
+});
+
 
 // Constants
 const CORRECT_BONUS = 10;
@@ -71,10 +65,11 @@ startGame = () => {
   // Copy the array of questions to availableQuestions
   availableQuestions = [...questions];
 
-;
-
   // Get a new question
   getNewQuestion();
+  game.classList.remove("hidden");
+  loader.classList.add("hidden");
+
 };
 
 // Function to get a new question
@@ -150,5 +145,3 @@ incrementscore = num =>{
   scoreText.innerText = score;
 };
 
-// Start the game
-startGame();

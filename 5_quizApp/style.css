@@ -76,11 +76,12 @@ h3{
     width: 20rem;
     text-align: center;
     border: 0.1rem solid #56a5eb;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem 4rem;
     text-decoration: none;
     color: #56a5eb;
     background-color: white;
     border-radius: 20px;
+    display: block;
 }
 
 .btn:hover {
