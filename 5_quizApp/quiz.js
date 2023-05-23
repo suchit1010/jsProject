@@ -141,7 +141,7 @@ choices.forEach((choice) => {
             // Get a new question
         getNewQuestion();
         
-    },1000);
+    },500);
   });
 });
 
